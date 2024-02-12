@@ -8,20 +8,6 @@ import java.util.UUID;
 import org.bukkit.Location;
 
 public class Region {
-    public class Chunk {
-        Chunk() {
-
-        }
-
-        Chunk(Location location) {
-            x = location.getChunk().getX();
-            z = location.getChunk().getZ();
-        }
-
-        public int x;
-        public int z;
-    }
-
     public Region(String name, UUID ownerUUID) {
         this.name = name;
         this.ownerUUID = ownerUUID;
