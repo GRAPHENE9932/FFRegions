@@ -9,3 +9,6 @@ commands:
   claim:
     description: Claims a chunk for a region
     usage: /<command> <region_name>
+  lsregion:
+    description: Shows chunks, claimed by region the player has access to
+    usage: /<command>

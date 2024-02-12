@@ -8,6 +8,7 @@ public class FFRegions extends JavaPlugin {
         getLogger().info("onEnable is called!");
         getCommand("mkregion").setExecutor(new CommandMkRegion());
         getCommand("claim").setExecutor(new CommandClaim());
+        getCommand("lsregion").setExecutor(new CommandLsRegion());
         getServer().getPluginManager().registerEvents(new PlayerActionListener(), this);
     }
     @Override
