@@ -27,6 +27,8 @@ public class CommandMkRegion implements CommandExecutor {
 
         Region region = new Region(args[0], player.getUniqueId());
         Database.getInstance().addRegion(region);
+
+        player.sendMessage("The \"" + region.getName() + "\" has been created.");
         return true;
     }
 }
