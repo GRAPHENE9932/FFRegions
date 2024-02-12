@@ -1,0 +1,4 @@
+name: "FFRegions"
+version: 0.0.1
+main: com.kliminskyi.ffregions.FFRegions
+api-version: "1.16"
