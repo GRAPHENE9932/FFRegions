@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import org.bukkit.Location;
 
-import com.kliminskyi.ffregions.Region.Chunk;
-
 public class Database {
     public static Database getInstance() {
         if (instance == null) {
