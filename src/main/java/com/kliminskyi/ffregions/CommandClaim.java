@@ -28,7 +28,7 @@ public class CommandClaim implements CommandExecutor {
             return false;
         }
 
-        Region.Chunk chunk = region.get().new Chunk(player.getLocation());
+        Chunk chunk = new Chunk(player.getLocation());
 
         if (Database.getInstance().isChunkClaimed(chunk)) {
             player.sendMessage("This chunk is already claimed.");
