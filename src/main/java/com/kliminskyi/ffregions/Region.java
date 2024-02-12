@@ -59,6 +59,10 @@ public class Region {
         membersUUID.remove(UUIDToRemove);
     }
 
+    public boolean isMemberOrOwner(UUID playerUUID) {
+        return ownerUUID.equals(playerUUID) || membersUUID.contains(playerUUID);
+    }
+
     private String name;
     private ArrayList<Chunk> chunks = new ArrayList<Chunk>();
     private UUID ownerUUID;
