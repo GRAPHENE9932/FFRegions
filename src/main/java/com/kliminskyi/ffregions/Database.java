@@ -1,9 +1,11 @@
 package com.kliminskyi.ffregions;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 public class Database {
     public static Database getInstance() {
@@ -39,6 +41,10 @@ public class Database {
 
     public Optional<Region> getRegionByLocation(Location location) {
         return regions.stream().filter(r -> r.isLocationClaimed(location)).findAny();
+    }
+
+    public List<Region> getRegionsPlayerOwns(Player player) {
+        return regions.stream().filter(r -> r.getOwnerUUID() == player.getUniqueId()).toList();
     }
 
     private static Database instance = null;

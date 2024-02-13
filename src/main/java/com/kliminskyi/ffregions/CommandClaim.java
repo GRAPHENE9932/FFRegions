@@ -1,5 +1,6 @@
 package com.kliminskyi.ffregions;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.bukkit.ChatColor;
@@ -19,10 +20,21 @@ public class CommandClaim implements CommandExecutor {
         Player player = (Player)sender;
 
         if (args.length < 1 || args[0].isEmpty()) {
-            player.sendMessage(
-                String.format("%sPlease specify the region name.%s", ChatColor.YELLOW, ChatColor.RESET)
-            );
-            return false;
+            List<Region> playersRegions = Database.getInstance().getRegionsPlayerOwns(player);
+            if (playersRegions.isEmpty()) {
+                player.sendMessage(
+                    String.format("%sYou don't own any regions.%s", ChatColor.RED, ChatColor.RESET)
+                );
+                return false;
+            }
+            else if (playersRegions.size() >= 2) {
+                player.sendMessage(
+                    String.format("%sAmbiguous region. Please specify its name.%s", ChatColor.RED, ChatColor.RESET)
+                );
+                return false;
+            }
+            
+            return claimChunkForRegion(player, playersRegions.get(0));
         }
 
         Optional<Region> region = Database.getInstance().getRegionByName(args[0]);
@@ -33,6 +45,10 @@ public class CommandClaim implements CommandExecutor {
             return false;
         }
 
+        return claimChunkForRegion(player, region.get());
+    }
+
+    private boolean claimChunkForRegion(Player player, Region region) {
         Chunk chunk = new Chunk(player.getLocation());
 
         if (Database.getInstance().isChunkClaimed(chunk)) {
@@ -42,7 +58,7 @@ public class CommandClaim implements CommandExecutor {
             return false;
         }
 
-        region.get().addChunk(chunk);
+        region.addChunk(chunk);
         player.sendMessage(
             String.format("%sChunk claimed.%s", ChatColor.GREEN, ChatColor.RESET)
         );
