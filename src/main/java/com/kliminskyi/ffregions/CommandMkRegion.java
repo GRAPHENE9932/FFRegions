@@ -1,5 +1,6 @@
 package com.kliminskyi.ffregions;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,19 +17,30 @@ public class CommandMkRegion implements CommandExecutor {
         Player player = (Player)sender;
 
         if (args.length < 1 || args[0].isEmpty()) {
-            player.sendMessage("Please specify the region name.");
+            player.sendMessage(
+                String.format("%sPlease specify the region name.%s", ChatColor.YELLOW, ChatColor.RESET)
+            );
             return false;
         }
 
         if (Database.getInstance().getRegionByName(args[0]).isPresent()) {
-            player.sendMessage("A region with the same name already exists.");
+            player.sendMessage(
+                String.format("A region with the same name already exists.", ChatColor.RED, ChatColor.RESET)
+            );
             return false;
         }
 
         Region region = new Region(args[0], player.getUniqueId());
         Database.getInstance().addRegion(region);
 
-        player.sendMessage("The \"" + region.getName() + "\" has been created.");
+        player.sendMessage(
+            String.format(
+                "%sThe %s\"%s\"%s%s region has been created.%s",
+                ChatColor.GREEN, ChatColor.BOLD,
+                region.getName(), ChatColor.RESET,
+                ChatColor.GREEN, ChatColor.RESET
+            )
+        );
         return true;
     }
 }

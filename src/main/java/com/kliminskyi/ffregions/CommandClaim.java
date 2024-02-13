@@ -2,6 +2,7 @@ package com.kliminskyi.ffregions;
 
 import java.util.Optional;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,25 +19,33 @@ public class CommandClaim implements CommandExecutor {
         Player player = (Player)sender;
 
         if (args.length < 1 || args[0].isEmpty()) {
-            player.sendMessage("Please specify the region name.");
+            player.sendMessage(
+                String.format("%sPlease specify the region name.%s", ChatColor.YELLOW, ChatColor.RESET)
+            );
             return false;
         }
 
         Optional<Region> region = Database.getInstance().getRegionByName(args[0]);
         if (region.isEmpty()) {
-            player.sendMessage("There is no region with a such name.");
+            player.sendMessage(
+                String.format("%sThere is no region with a such name.%s", ChatColor.RED, ChatColor.RESET)
+            );
             return false;
         }
 
         Chunk chunk = new Chunk(player.getLocation());
 
         if (Database.getInstance().isChunkClaimed(chunk)) {
-            player.sendMessage("This chunk is already claimed.");
+            player.sendMessage(
+                String.format("%sThis chunk is already claimed.%s", ChatColor.RED, ChatColor.RESET)
+            );
             return false;
         }
 
         region.get().addChunk(chunk);
-        player.sendMessage("Chunk claimed.");
+        player.sendMessage(
+            String.format("%sChunk claimed.%s", ChatColor.GREEN, ChatColor.RESET)
+        );
         return true;
     }
 }
