@@ -60,7 +60,9 @@ public class CommandClaim implements CommandExecutor {
 
         region.addChunk(chunk);
         player.sendMessage(
-            String.format("%sChunk claimed.%s", ChatColor.GREEN, ChatColor.RESET)
+            String.format(
+                "%sChunk claimed for %s\"%s\"%s%s.%s", ChatColor.GREEN, ChatColor.BOLD, region.getName(), ChatColor.RESET, ChatColor.GREEN, ChatColor.RESET
+            )
         );
         return true;
     }
