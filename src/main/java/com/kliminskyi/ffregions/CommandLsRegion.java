@@ -30,21 +30,28 @@ public class CommandLsRegion implements CommandExecutor {
         return true;
     }
 
-    private void fillInventory(Inventory inventory, Player player, boolean swap_x_and_z, boolean negate_z) {
+    private void fillInventory(Inventory inventory, Player player, Direction direction) {
         for (int x = 0; x < 9; x++) {
             for (int z = 0; z < 5; z++) {
                 Chunk currentChunk = new Chunk(player.getLocation());
 
-                int offset_x = x - 4;
-                int offset_z = z - 2;
-
-                if (swap_x_and_z) {
-                    int tmp = offset_x;
-                    offset_x = offset_z;
-                    offset_z = tmp;
+                int offset_x;
+                int offset_z;
+                if (direction == Direction.NEG_Z) {
+                    offset_x = x - 4;
+                    offset_z = z - 2;
                 }
-                if (negate_z) {
-                    offset_z = -offset_z;
+                else if (direction == Direction.POS_Z) {
+                    offset_x = x - 4;
+                    offset_z = -z + 2;
+                }
+                else if (direction == Direction.NEG_X) {
+                    offset_x = z - 2;
+                    offset_z = -x + 4;
+                }
+                else {
+                    offset_x = -z + 2;
+                    offset_z = x - 4;
                 }
 
                 currentChunk.x += offset_x;
@@ -57,18 +64,7 @@ public class CommandLsRegion implements CommandExecutor {
 
     private void fillInventory(Inventory inventory, Player player) {
         Direction dir = calculateDirection(player.getLocation());
-        if (dir == Direction.POS_Z) {
-            fillInventory(inventory, player, false, true);
-        }
-        else if (dir == Direction.NEG_Z) {
-            fillInventory(inventory, player, false, false);
-        }
-        else if (dir == Direction.POS_X) {
-            fillInventory(inventory, player, true, false);
-        }
-        else {
-            fillInventory(inventory, player, true, true);
-        }
+        fillInventory(inventory, player, dir);
     }
 
     private ItemStack createItemStackForChunk(Chunk chunk, Player player) {
