@@ -1,5 +1,6 @@
 package com.kliminskyi.ffregions;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.UUID;
 
 import org.bukkit.Location;
 
-public class Region {
+public class Region implements Serializable {
     public Region(String name, UUID ownerUUID) {
         this.name = name;
         this.ownerUUID = ownerUUID;

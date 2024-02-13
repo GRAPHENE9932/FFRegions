@@ -1,5 +1,6 @@
 package com.kliminskyi.ffregions;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -7,12 +8,16 @@ import java.util.Optional;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public class Database {
+public class Database implements Serializable {
     public static Database getInstance() {
         if (instance == null) {
             instance = new Database();
         }
         return instance;
+    }
+
+    public static void setInstance(Database db) {
+        instance = db;
     }
 
     public void addRegion(Region region) {

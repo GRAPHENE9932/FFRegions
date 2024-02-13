@@ -1,8 +1,10 @@
 package com.kliminskyi.ffregions;
 
+import java.io.Serializable;
+
 import org.bukkit.Location;
 
-public class Chunk {
+public class Chunk implements Serializable {
     Chunk() {
 
     }
