@@ -6,11 +6,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class CommandMkRegion implements CommandExecutor {
+public class CommandMkRg implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.getServer().getLogger().warning("Only players can send the mkregion command.");
+            sender.getServer().getLogger().warning("Only players can send the mkrg command.");
             return false;
         }
 

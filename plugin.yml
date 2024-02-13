@@ -3,12 +3,12 @@ version: 0.0.1
 main: com.kliminskyi.ffregions.FFRegions
 api-version: "1.16"
 commands:
-  mkregion:
+  mkrg:
     description: Makes a new region
     usage: /<command> <region_name>
   claim:
     description: Claims a chunk for a region
     usage: /<command> <region_name>
-  lsregion:
+  lsrg:
     description: Shows chunks, claimed by region the player has access to
     usage: /<command>
