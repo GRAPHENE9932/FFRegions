@@ -1,6 +1,8 @@
 package com.kliminskyi.ffregions;
 
+import java.util.HashMap;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -9,11 +11,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class CommandLsRg implements CommandExecutor {
+public class CommandLsRg implements CommandExecutor, Listener {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
@@ -25,9 +30,28 @@ public class CommandLsRg implements CommandExecutor {
 
         Inventory inventory = Bukkit.createInventory(null, 45, "Chunks nearby");
         fillInventory(inventory, player);
+        inventories.put(player.getUniqueId(), inventory);
         player.openInventory(inventory);
 
         return true;
+    }
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent e) {
+        if (!(e.getWhoClicked() instanceof Player)) {
+            return;
+        }
+
+        Player player = (Player)e.getWhoClicked();
+        if (!inventories.containsKey(player.getUniqueId())) {
+            return;
+        }
+
+        if (!inventories.get(player.getUniqueId()).equals(e.getInventory())) {
+            return;
+        }
+
+        e.setCancelled(true);
     }
 
     private void fillInventory(Inventory inventory, Player player, Direction direction) {
@@ -117,4 +141,6 @@ public class CommandLsRg implements CommandExecutor {
             return Direction.POS_X;
         }
     }
+
+    private HashMap<UUID, Inventory> inventories = new HashMap<UUID, Inventory>();
 }
