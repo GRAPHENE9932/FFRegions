@@ -42,7 +42,7 @@ public class CommandLsRg implements CommandExecutor {
                     offset_z = z - 2;
                 }
                 else if (direction == Direction.POS_Z) {
-                    offset_x = x - 4;
+                    offset_x = -x + 4;
                     offset_z = -z + 2;
                 }
                 else if (direction == Direction.NEG_X) {
