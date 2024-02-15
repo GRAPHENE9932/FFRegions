@@ -49,7 +49,7 @@ public class Database implements Serializable {
     }
 
     public List<Region> getRegionsPlayerOwns(Player player) {
-        return regions.stream().filter(r -> r.getOwnerUUID() == player.getUniqueId()).toList();
+        return regions.stream().filter(r -> r.getOwnerUUID().equals(player.getUniqueId())).toList();
     }
 
     private static Database instance = null;
