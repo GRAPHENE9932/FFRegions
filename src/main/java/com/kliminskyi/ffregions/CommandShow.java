@@ -1,6 +1,7 @@
 package com.kliminskyi.ffregions;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -8,7 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,14 +18,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class CommandLsRg implements CommandExecutor, Listener {
+public class CommandShow implements FFRegionsCommand, Listener {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.getServer().getLogger().warning("Only players can send the lsrg command.");
-            return false;
-        }
-
         Player player = (Player)sender;
 
         Inventory inventory = Bukkit.createInventory(null, 45, "Chunks nearby");
@@ -143,4 +138,9 @@ public class CommandLsRg implements CommandExecutor, Listener {
     }
 
     private HashMap<UUID, Inventory> inventories = new HashMap<UUID, Inventory>();
+
+    @Override
+    public List<String> getCompletes(Optional<Player> player, String[] args) {
+        return List.of();
+    }
 }

@@ -1,19 +1,16 @@
 package com.kliminskyi.ffregions;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class CommandMkRg implements CommandExecutor {
+public class CommandCreate implements FFRegionsCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.getServer().getLogger().warning("Only players can send the mkrg command.");
-            return false;
-        }
-
         Player player = (Player)sender;
 
         if (args.length < 1 || args[0].isEmpty()) {
@@ -42,5 +39,10 @@ public class CommandMkRg implements CommandExecutor {
             )
         );
         return true;
+    }
+
+    @Override
+    public List<String> getCompletes(Optional<Player> player, String[] args) {
+        return List.of();
     }
 }

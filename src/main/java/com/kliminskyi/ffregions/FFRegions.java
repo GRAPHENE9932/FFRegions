@@ -11,12 +11,10 @@ public class FFRegions extends JavaPlugin {
         DataSaverLoader.initialize(this);
         DataSaverLoader.getInstance().loadDatabase();
 
-        CommandLsRg commandLsRg = new CommandLsRg();
-        getCommand("mkrg").setExecutor(new CommandMkRg());
-        getCommand("claim").setExecutor(new CommandClaim());
-        getCommand("lsrg").setExecutor(commandLsRg);
+        CommandFFRg commandFFRg = new CommandFFRg();
+        getCommand("ffrg").setExecutor(commandFFRg);
         getServer().getPluginManager().registerEvents(new PlayerActionListener(), this);
-        getServer().getPluginManager().registerEvents(commandLsRg, this);
+        getServer().getPluginManager().registerEvents((CommandShow)commandFFRg.getCommand("show"), this);
     }
     @Override
     public void onDisable() {
